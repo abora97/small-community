@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">fireBaseSenior</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="login_but">LogIn</string>
+    <string name="sign_up_but">Sign Up</string>
+    <string name="forget_password"><u>Forget password</u></string>
+    <string name="reset_password">Reset password</string>
+    <string name="name">Name</string>
+    <string name="Status">Enter your Status</string>
+    <string name="price">price</string>
+    <string name="rate">rate</string>
+    <string name="post">Post</string>
+</resources>
