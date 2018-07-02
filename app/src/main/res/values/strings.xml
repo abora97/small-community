@@ -11,4 +11,7 @@
     <string name="price">price</string>
     <string name="rate">rate</string>
     <string name="post">Post</string>
+    <string name="chat_room">Chat Room</string>
+    <string name="massage">Massage</string>
+    <string name="type_a_massage">Type a massage</string>
 </resources>

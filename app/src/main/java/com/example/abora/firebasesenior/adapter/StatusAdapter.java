@@ -18,13 +18,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class statusAdapter extends RecyclerView.Adapter<statusAdapter.statusHolder> {
+public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.statusHolder> {
 
     private final OnItemLongClickListner listner;
     private Context mContext;
     private List<Status> list;
 
-    public statusAdapter(Context mContext, List<Status> list, OnItemLongClickListner listner){
+    public StatusAdapter(Context mContext, List<Status> list, OnItemLongClickListner listner){
         this.mContext = mContext;
         this.list = list;
         this.listner=listner;
@@ -42,6 +42,7 @@ public class statusAdapter extends RecyclerView.Adapter<statusAdapter.statusHold
         final Status status = list.get(position);
         holder.rowName.setText(status.getName());
         holder.rowPost.setText(status.getStatus());
+
         holder.root.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

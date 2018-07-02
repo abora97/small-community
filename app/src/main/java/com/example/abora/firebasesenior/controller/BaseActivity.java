@@ -21,7 +21,7 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.test_menu:
-                Toast.makeText(this, "test mnu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Login Please", Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -8,15 +8,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.abora.firebasesenior.Model.Status;
 import com.example.abora.firebasesenior.R;
-import com.example.abora.firebasesenior.Util.Constant;
-import com.example.abora.firebasesenior.adapter.statusAdapter;
-import com.example.abora.firebasesenior.api.FirebaseHelper;
+import com.example.abora.firebasesenior.adapter.StatusAdapter;
 import com.example.abora.firebasesenior.api.Networking;
 import com.example.abora.firebasesenior.callback.OnFireBaseOperationListener;
 import com.example.abora.firebasesenior.callback.OnFirebaseDataListener;
@@ -40,7 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     ProgressBar progressBar;
 
     private RecyclerView.LayoutManager layoutManager;
-    private statusAdapter adapter;
+    private StatusAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +54,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void init() {
         addFabBu.setOnClickListener(this);
         swipeLayout.setOnRefreshListener(this);
-        layoutManager = new LinearLayoutManager(this);
-        myRecycler.setLayoutManager(layoutManager);
 
-        adapter = new statusAdapter(MainActivity.this,new ArrayList<Status>(),this);
+        layoutManager = new LinearLayoutManager(this);
+
+        myRecycler.setLayoutManager(layoutManager);
+        adapter = new StatusAdapter(MainActivity.this, new ArrayList<Status>(), this);
         myRecycler.setAdapter(adapter);
 
         progressBar.setVisibility(View.VISIBLE);
@@ -87,23 +89,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_fab_bu:
-                startActivity(new Intent(MainActivity.this,DetailActitity.class));
+                startActivity(new Intent(MainActivity.this, DetailActitity.class));
                 break;
         }
     }
 
     @Override
     public void onRefresh() {
-       getAllitems();
+        getAllitems();
     }
 
     @Override
     public void onLongClisck(final Status status) {
-        final AlertDialog.Builder builder=new AlertDialog.Builder(this)
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("Deleting !!")
                 .setMessage("Are You Sure !!")
                 .setCancelable(false)
-                .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK !", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deletePost(status);
@@ -130,5 +132,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Toast.makeText(MainActivity.this, errorMassege, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.test_menu:
+               startActivity(new Intent(MainActivity.this,ChatActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

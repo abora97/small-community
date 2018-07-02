@@ -33,7 +33,7 @@ import com.google.android.gms.tasks.Task;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.email_ed)
     EditText emailEd;
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         if(FirebaseHelper.getAuth().getCurrentUser()!=null){
             startActivity(new Intent(this,MainActivity.class));
-        //    finish();
+            finish();
         }
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);

@@ -2,10 +2,13 @@ package com.example.abora.firebasesenior.api;
 
 import android.support.annotation.NonNull;
 
+import com.example.abora.firebasesenior.Model.Massage;
 import com.example.abora.firebasesenior.Model.Status;
 import com.example.abora.firebasesenior.Util.Constant;
 import com.example.abora.firebasesenior.callback.OnFireBaseOperationListener;
 import com.example.abora.firebasesenior.callback.OnFirebaseDataListener;
+import com.example.abora.firebasesenior.callback.OnFirebaseMassageListener;
+import com.example.abora.firebasesenior.callback.OnMassageListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -131,6 +134,56 @@ public class Networking {
                         }
                     }
                 });
+    }
+
+    // refresh and get all massage
+    public static void getMassage(final OnFirebaseMassageListener listener) {
+        FirebaseHelper.getDatabase()
+                .getReference()
+                .child(Constant.Firebase.MASSAGE_NODE)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        List<Massage> massages = new ArrayList<>();
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Massage massagess = child.getValue(Massage.class);
+                            massages.add(massagess);
+                        }
+
+                        listener.onSucess(massages);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        listener.onErro(databaseError.getMessage());
+                    }
+                });
+
+    }
+
+    // send massage "enter massage to firebase
+    public static void sendMassage(Massage massage, final OnMassageListener listener){
+        String key = FirebaseHelper.getDatabase()
+                .getReference().child(Constant.Firebase.MASSAGE_NODE)
+                .push().getKey();
+
+        massage.setMassageKey(key);
+
+        FirebaseHelper.getDatabase()
+                .getReference().child(Constant.Firebase.MASSAGE_NODE)
+                .child(key).setValue(massage)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            listener.onSucess();
+                        } else {
+                            listener.onErro(task.getException().getMessage());
+                        }
+                    }
+                });
+
     }
 
 }
