@@ -147,7 +147,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.test_menu:
                startActivity(new Intent(MainActivity.this,ChatActivity.class));
             default:
-                return super.onOptionsItemSelected(item);
+                return true;
         }
     }
 }

@@ -10,11 +10,18 @@ import com.example.abora.firebasesenior.R;
 
 public class BaseActivity extends AppCompatActivity {
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.my_menu, menu);
         return true;
+    }*/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
